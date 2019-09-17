@@ -48,7 +48,7 @@ function concertThis(search) {
 
 function spotifyThis(search) {
     if (!search) {
-        search = "The Sign"; 
+        search = "Truth Hurts"; 
     }
     spotify 
         .search({ type: 'track', query: search })
