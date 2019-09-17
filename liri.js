@@ -18,16 +18,12 @@ function randomInput(command, search) {
         case "concert-this":
             concertThis(search);
             break;
-
         case "spotify-this-song":
-
             spotifyThis(search);
             break;
-
         case "movie-this":
             movieThis(search);
             break;
-
         case "do-what-it-says":
             doThis();
             break;
@@ -37,28 +33,24 @@ function randomInput(command, search) {
 }
 
 function concertThis(search) {
-    const queryURL = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp"
+    var queryURL = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp"; 
     axios.get(queryURL)
-        .then(function (response) {
-            for (var i = 0; i < response.data.length; i++) {
-                var date = response.data[i].datetime;
-                var newDate = date.split(" ");
-                console.log("Name of the Venue: " + response.data[i].venue.name);
-                console.log("Venue Location: " + response.data[i].venue.city);
-                console.log("Date of the Event: " + moment(newDate[i]).format("MM-DD-YYYY"));
-            }
+        .then(function (search) {
+                console.log("Name of Venue: " + search.data[0].venue.name);
+                console.log("Venue Location:  " + search.data[0].venue.city); 
+                var eventDate = moment(search.data[0].datetime); 
+                console.log("Date of Event: " + eventDate.format("MM/DD/YYYY")); 
         })
         .catch(function (error) {
             console.log(error);
-        })
+        }); 
 }
 
-function spotifyThis() {
+function spotifyThis(search) {
     if (!search) {
-        search = "The Weekend"; 
+        search = "The Sign"; 
     }
-    else {
-    spotify
+    spotify 
         .search({ type: 'track', query: search })
         .then(function (response) {
             console.log("Artist's Name: ", response.tracks.items[0].album.artists[0].name);
@@ -69,7 +61,6 @@ function spotifyThis() {
         .catch(function (err) {
             console.log(err);
         })
-    }
 }
 
 function movieThis() {
@@ -98,16 +89,17 @@ function movieThis() {
 }
 
 // Code to read the "random.txt" file 
+
 function doThis() {
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         }
-        var input = data.split(",");
-        console.log(data); 
-        command = input[0]; 
-        search = input[1]; 
+        var input = data.split(","); 
+        command = input[0];
+        search = input[1];
         randomInput(command, search);
+        console.log(data);
     });
 }
 
