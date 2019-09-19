@@ -36,7 +36,7 @@ function concertThis(search) {
     axios.get(queryURL)
         .then(function (search) {
             if(search.errorMessage){
-                console.log('We could not find that song.Try Again.');
+                console.log('We could not find that song. Please try again.');
                 return;
             }
                 console.log("Name of Venue: " + search.data[0].venue.name);
@@ -45,7 +45,7 @@ function concertThis(search) {
                 console.log("Date of Event: " + eventDate.format("MM/DD/YYYY")); 
         })
         .catch(function (error) {
-            console.log('We could not find that song. Try Again!');
+            console.log('We could not find that song. Please try again!');
         }); 
 }
 
@@ -105,4 +105,9 @@ function doThis() {
         console.log(data);
     });
 }
+
+
+
+
+
 
