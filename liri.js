@@ -10,7 +10,6 @@ var moment = require("moment");
 // takes user's input and command method 
 var command = process.argv[2];
 var search = process.argv.slice(3).join(" ");
-
 randomInput(command, search);
 
 function randomInput(command, search) {
@@ -36,13 +35,17 @@ function concertThis(search) {
     var queryURL = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp"; 
     axios.get(queryURL)
         .then(function (search) {
+            if(search.errorMessage){
+                console.log('We could not find that song.Try Again.');
+                return;
+            }
                 console.log("Name of Venue: " + search.data[0].venue.name);
                 console.log("Venue Location:  " + search.data[0].venue.city); 
                 var eventDate = moment(search.data[0].datetime); 
                 console.log("Date of Event: " + eventDate.format("MM/DD/YYYY")); 
         })
         .catch(function (error) {
-            console.log(error);
+            console.log('We could not find that song. Try Again!');
         }); 
 }
 
